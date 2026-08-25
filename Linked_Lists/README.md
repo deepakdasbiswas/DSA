@@ -22,3 +22,10 @@
     * **Phase 2 (Locating the Entrance):** The moment they collided, I left the `slow` pointer exactly at the crash site and spawned a new `start` pointer back at the `head`. 
     * Because of the geometric math behind the loop, moving both `start` and `slow` forward at the exact same speed (one step at a time) mathematically guarantees their paths will perfectly intersect at the exact node where the cycle begins.
     * If the `fast` pointer safely hits `NULL` during Phase 1, the list is a straight line, and I return `NULL`.
+
+* **Problem:** Delete Node in a Linked List (LeetCode 237)
+* **Approach:** The "Imposter" Node Trick (O(1) Time, O(1) Space).
+    * Because we are not given the `head` of the list, it is impossible to find the `prev` node required for a standard deletion.
+    * Instead of deleting the given node, I copied the data (`val`) from the `next` node into the current node.
+    * I then re-routed the current node's `next` pointer to skip the next node entirely (`node->next = node->next->next`).
+    * Finally, I used `free()` to delete the next node from memory. The original node now perfectly impersonates the next node, effectively deleting the original value.
