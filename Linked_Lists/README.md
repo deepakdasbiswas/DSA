@@ -1,8 +1,9 @@
-LINKED LIST SOLUTIONS
----------------------
+# LINKED LIST SOLUTIONS
+-----------------------
 
-Problem: Cycle Detection in a linked list (LeetCode 141)
-Approach: To solve this specific problem i used floyd tortoise and hare algorithm where i created a node called slow(the tortoise) and fast(hare) and stored the head in both of them then i checked if the head is null is its so then no cycle so return false, then i runned a while loop explicitely untill my hare and hare->next is not null and i moved my tortoise one step and my hare two step strating from the head, now if a loop exist then my hare will run fast and eventually catch my tortoise returning true and if its not the case then there exist no cycle returning false
-___________________________________________________________________________________________
-
-
+* **Problem:** Cycle Detection in a linked list (LeetCode 141)
+* **Approach:** To solve this specific problem I used Floyd's Tortoise and Hare algorithm. I created a node called `slow` (the tortoise) and `fast` (the hare) and stored the head in both of them. 
+    * First, I checked if the head is NULL. If it is, there is no cycle, so return false.
+    * Then, I ran a while loop explicitly until my hare and `hare->next` are not NULL. 
+    * I moved my tortoise one step and my hare two steps starting from the head.
+    * If a loop exists, my hare will run fast and eventually catch my tortoise, returning true. If that is not the case, there is no cycle, returning false.
