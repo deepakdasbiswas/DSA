@@ -36,3 +36,14 @@
     * Used a `while(temp->next != NULL)` loop to walk down the track, intentionally stopping exactly on the very last node without falling off the edge into `NULL`.
     * Wired the current tail's `next` pointer forward to the new node, and the new node's `prev` pointer backward to complete the two-way street.
     * Time Complexity: O(N) to walk the track. Space Complexity: O(1).
+
+* **Problem:** Delete a Node by Index (Doubly Linked List)
+* **Approach:** I used a temporary pointer to traverse the list and perform a four-cable pointer bypass.
+    * Initialized an index tracker (`int index = 1`) and a traversal pointer (`Node *temp = head;`).
+    * **Edge Case 1 (Empty List):** If `head == NULL`, immediately return `NULL`.
+    * **Traversal:** Used a `while(temp != NULL && index != target)` loop to walk the track, safely stopping exactly on the target node or falling off the end.
+    * **Edge Case 2 (Out of Bounds):** If the loop finishes and `temp` is `NULL` (target not found), return the original `head` to leave the list intact.
+    * **Edge Case 3 (The Head Chop):** If the target node is the `head`, shift the head forward (`head = temp->next`). If the new head exists, sever its backward cable (`head->prev = NULL`).
+    * **The Bypass (Middle or Tail):** For any other node, bypass it forward (`temp->prev->next = temp->next`). Then, check if a node exists in front of it (`if(temp->next != NULL)`) before bypassing it backward (`temp->next->prev = temp->prev`).
+    * Cleared the target node using `free(temp)` and returned the head.
+    * **Time Complexity:** O(N) to walk the track. **Space Complexity:** O(1).
