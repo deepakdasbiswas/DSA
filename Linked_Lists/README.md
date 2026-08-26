@@ -29,3 +29,10 @@
     * Instead of deleting the given node, I copied the data (`val`) from the `next` node into the current node.
     * I then re-routed the current node's `next` pointer to skip the next node entirely (`node->next = node->next->next`).
     * Finally, I used `free()` to delete the next node from memory. The original node now perfectly impersonates the next node, effectively deleting the original value.
+
+* **Problem:** Insert at Tail (Doubly Linked List)
+* **Approach:** I used a temporary pointer to walk the list and handle the two-way pointer manipulation.
+    * Handled the edge case where the list is entirely empty by immediately returning the safely initialized new node.
+    * Used a `while(temp->next != NULL)` loop to walk down the track, intentionally stopping exactly on the very last node without falling off the edge into `NULL`.
+    * Wired the current tail's `next` pointer forward to the new node, and the new node's `prev` pointer backward to complete the two-way street.
+    * Time Complexity: O(N) to walk the track. Space Complexity: O(1).
