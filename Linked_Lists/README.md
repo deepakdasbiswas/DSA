@@ -47,3 +47,13 @@
     * **The Bypass (Middle or Tail):** For any other node, bypass it forward (`temp->prev->next = temp->next`). Then, check if a node exists in front of it (`if(temp->next != NULL)`) before bypassing it backward (`temp->next->prev = temp->prev`).
     * Cleared the target node using `free(temp)` and returned the head.
     * **Time Complexity:** O(N) to walk the track. **Space Complexity:** O(1).
+
+* **Problem:** Reverse a Doubly Linked List
+* **Approach:** I traversed the list iteratively, physically swapping the forward and backward cables for every node in place.
+    * Handled the base cases first: if the list is completely empty or has only one node (`head == NULL || head->next == NULL`), it immediately returns the original `head`.
+    * Initialized a `temp` pointer to walk the track and a `last_changed` pointer to track the new head.
+    * Used a `while(temp != NULL)` loop to ensure every single box is processed, stopping only when `temp` falls off the very end of the track.
+    * Inside the loop, swapped the `next` and `prev` pointers of the current box using a temporary `store` variable. 
+    * Advanced to the next un-reversed node by calling `temp = temp->prev` (since the cables were just flipped, `prev` now points forward down the original track).
+    * Kept `last_changed` pinned to the current node before stepping forward, guaranteeing it lands perfectly on the new head when `temp` eventually becomes `NULL`.
+    * **Time Complexity:** O(N) to traverse the list once. **Space Complexity:** O(1) as it modifies pointers in place without allocating new memory.
