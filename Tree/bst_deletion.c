@@ -5,32 +5,34 @@ typedef struct TreeNode{
     struct TreeNode *left;
     struct TreeNode *right;
 }TreeNode;
-TreeNode* search(TreeNode *root,int val){
-    if(root==NULL || root->data==val){
+TreeNode* getSuccessor(TreeNode *curr){
+    while(curr!=NULL && curr->left!=NULL){
+        curr=curr->left;
+    }
+    return curr;
+}
+TreeNode* delete(TreeNode *root,int val){
+    if(root==NULL){
         return root;
     }
     if(val<root->data){
-        return search(root->left,val);
+        root->left=delete(root->left,val);
     }else if(val>root->data){
-        return search(root->right,val);
+        root->right=delete(root->right,val);
+    }else if(val==root->data){
+        if(root->left==NULL){
+            TreeNode *temp=root->right;
+            free(root);
+            return temp;
+        }else if(root->right==NULL){
+            TreeNode *temp=root->left;
+            free(root);
+            return temp;
+        }else if(root->left!=NULL && root->right!=NULL){
+            TreeNode *temp=getSuccessor(root->right);
+            root->data=temp->data;
+            root->right=delete(root->right,temp->data);
+        } 
     }
-
-}
-TreeNode* delete(TreeNode *root,int val){
-    if(search(root,val)->left==NULL && search(root,val)->right==NULL){
-        free(search(root,val));
-    }else if(search(root,val)->left!=NULL || search(root,val)->right!=NULL){
-        if(search(root,val)->left!=NULL && search(root,val)->right==NULL){
-            TreeNode *temp=search(root,val)->left;
-            search(root,val)->left=search(root,val)->left->left;
-            free(search(root,val)->left);
-        }else if(search(root,val)->left==NULL && search(root,val)->right!=NULL){
-            TreeNode *temp=search(root,val)->right;
-            search(root,val)->right=search(root,val)->right->right;
-            free(search(root,val)->right);
-        }
-    }else if(search(root,val)->left!=NULL && search(root,val)->right!=NULL){
-        
-    }
-    
+    return root;
 }
